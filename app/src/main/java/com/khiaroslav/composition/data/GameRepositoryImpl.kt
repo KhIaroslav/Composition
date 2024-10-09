@@ -21,9 +21,10 @@ object GameRepositoryImpl : GameRepository {
         val from = max(rightAnswer - countOfOption, MIN_ANSWER_VALUE)
         val to = min(maxSumValue - 1, rightAnswer + countOfOption)
 
-        while (options.sum() < countOfOption) {
+        while (options.size < countOfOption) {
             options.add(Random.nextInt(from, to))
         }
+
         return Question(sum, visibleNumber, options.toList())
     }
 
@@ -43,7 +44,7 @@ object GameRepositoryImpl : GameRepository {
                     10,
                     10,
                     70,
-                    8
+                    60
                 )
             }
 
