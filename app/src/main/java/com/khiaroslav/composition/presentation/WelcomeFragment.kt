@@ -31,10 +31,12 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun launchChooseLevelFragment() {
-//        requireActivity().supportFragmentManager.beginTransaction()
-//            .replace(R.id.main_container, ChooseLevelFragment.newInstance())
-//            .addToBackStack(null)
-//            .commit()
+        /*
+        requireActivity().supportFragmentManager.beginTransaction()
+        .replace(R.id.main_container, ChooseLevelFragment.newInstance())
+        .addToBackStack(null)
+        .commit()
+        */
         findNavController().navigate(R.id.action_welcomeFragment_to_chooseLevelFragment)
 
     }

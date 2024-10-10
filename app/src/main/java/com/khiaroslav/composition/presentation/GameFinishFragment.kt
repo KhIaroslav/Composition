@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.khiaroslav.composition.R
 import com.khiaroslav.composition.databinding.FragmentGameFinishBinding
 import com.khiaroslav.composition.domain.entity.GameResult
@@ -17,16 +18,21 @@ import java.util.Locale
 
 class GameFinishFragment : Fragment() {
 
-    private lateinit var gameResult: GameResult
+    /* private lateinit var gameResult: GameResult */
+
+    private val args by navArgs<GameFinishFragmentArgs>()
 
     private var _binding: FragmentGameFinishBinding? = null
     private val binding: FragmentGameFinishBinding
         get() = _binding ?: throw RuntimeException("FragmentGameFinishBinding == null")
 
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseArgs()
+    super.onCreate(savedInstanceState)
+    parseArgs()
+    gameResult = args.gameResult
     }
+    */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,93 +50,105 @@ class GameFinishFragment : Fragment() {
     }
 
     private fun setupClickListener() = with(binding) {
-//        val callback = object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                retryGame()
-//            }
-//        }
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+/*
+val callback = object : OnBackPressedCallback(true) {
+override fun handleOnBackPressed() {
+retryGame()
+}
+}
+requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+*/
         buttonRetry.setOnClickListener {
             retryGame()
         }
     }
 
     private fun bindViews() = with(binding) {
+        gameResult = args.gameResult
+        /*
         emojiResult.setImageDrawable(
-            ContextCompat.getDrawable(
-                requireContext(),
-                getSmileResId()
-            )
+        ContextCompat.getDrawable(
+        requireContext(),
+        getSmileResId()
+        )
         )
         tvRequiredAnswers.text = String.format(
-            Locale.getDefault(),
-            ContextCompat.getString(requireContext(), R.string.required_score),
-            gameResult.gameSettings.minCountOfRightAnswers
+        Locale.getDefault(),
+        ContextCompat.getString(requireContext(), R.string.required_score),
+        gameResult.gameSettings.minCountOfRightAnswers
         )
         tvScoreAnswers.text = String.format(
-            Locale.getDefault(),
-            ContextCompat.getString(requireContext(), R.string.score_answers),
-            gameResult.countOfRightAnswers
+        Locale.getDefault(),
+        ContextCompat.getString(requireContext(), R.string.score_answers),
+        args.gameResult.countOfRightAnswers
         )
         tvRequiredPercentage.text = String.format(
-            Locale.getDefault(),
-            ContextCompat.getString(requireContext(), R.string.required_percentage),
-            gameResult.gameSettings.minPercentOfRightAnswers
+        Locale.getDefault(),
+        ContextCompat.getString(requireContext(), R.string.required_percentage),
+        args.gameResult.gameSettings.minPercentOfRightAnswers
         )
         tvScorePercentage.text = String.format(
-            Locale.getDefault(),
-            ContextCompat.getString(requireContext(), R.string.score_percentage),
-            getPercentOfRightAnswers()
+        Locale.getDefault(),
+        ContextCompat.getString(requireContext(), R.string.score_percentage),
+        getPercentOfRightAnswers()
         )
+        */
     }
 
+    /*
     private fun getSmileResId(): Int {
-        return if (gameResult.winner) {
-            R.drawable.ic_smile
-        } else {
-            R.drawable.ic_sad
-        }
+    return if (args.gameResult.winner) {
+    R.drawable.ic_smile
+    } else {
+    R.drawable.ic_sad
     }
-
-    private fun getPercentOfRightAnswers() = with(gameResult) {
-        if (countOfQuestions == 0) {
-            0
-        } else {
-            ((countOfRightAnswers / countOfQuestions.toDouble()) * 100).toInt()
-        }
     }
+    private fun getPercentOfRightAnswers() = with(args.gameResult) {
+    if (countOfQuestions == 0) {
+    0
+    } else {
+    ((countOfRightAnswers / countOfQuestions.toDouble()) * 100).toInt()
+    }
+    }
+    */
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    /*
     private fun parseArgs() {
-        gameResult = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(KEY_GAME_RESULT, GameResult::class.java)
-        } else {
-            requireArguments().getParcelable(KEY_GAME_RESULT) as? GameResult
-        } ?: throw RuntimeException("Level is null")
+    gameResult = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+    requireArguments().getParcelable(KEY_GAME_RESULT, GameResult::class.java)
+    } else {
+    requireArguments().getParcelable(KEY_GAME_RESULT) as? GameResult
+    } ?: throw RuntimeException("Level is null")
     }
+    */
 
     private fun retryGame() {
         findNavController().popBackStack()
-//        requireActivity().supportFragmentManager.popBackStack(
-//            GameFragment.NAME,
-//            FragmentManager.POP_BACK_STACK_INCLUSIVE
-//        )
+        /*
+        requireActivity().supportFragmentManager.popBackStack(
+        GameFragment.NAME,
+        FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        */
     }
+    /*
 
     companion object {
-        const val KEY_GAME_RESULT = "game_result"
+    const val KEY_GAME_RESULT = "game_result"
 
-        fun newInstance(gameResult: GameResult): GameFinishFragment {
-            return GameFinishFragment().apply {
-                arguments = Bundle().apply {
-                    // putSerializable(KEY_GAME_RESULT, gameResult)
-                    putParcelable(KEY_GAME_RESULT, gameResult)
-                }
-            }
-        }
+    fun newInstance(gameResult: GameResult): GameFinishFragment {
+    return GameFinishFragment().apply {
+    arguments = Bundle().apply {
+    // putSerializable(KEY_GAME_RESULT, gameResult)
+    putParcelable(KEY_GAME_RESULT, gameResult)
     }
+    }
+    }
+    }
+    */
 }
