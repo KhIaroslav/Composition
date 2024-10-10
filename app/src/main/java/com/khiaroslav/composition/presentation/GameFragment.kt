@@ -9,12 +9,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.khiaroslav.composition.R
 import com.khiaroslav.composition.databinding.FragmentGameBinding
 import com.khiaroslav.composition.domain.entity.GameResult
 import com.khiaroslav.composition.domain.entity.Level
-import com.khiaroslav.composition.presentation.GameFinishFragment.Companion.KEY_GAME_RESULT
 import java.util.Locale
 
 class GameFragment : Fragment() {
@@ -138,16 +136,12 @@ class GameFragment : Fragment() {
     }
 
     private fun launchGameFinishedFragment(gameResult: GameResult) {
-//        val fragment = GameFinishFragment.newInstance(gameResult)
-//        requireActivity().supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.main_container, fragment)
-//            .addToBackStack(null)
-//            .commit()
-        val args = Bundle().apply {
-            putParcelable(KEY_GAME_RESULT, gameResult)
-        }
-        findNavController().navigate(R.id.action_gameFragment_to_gameFinishFragment, args)
+        val fragment = GameFinishFragment.newInstance(gameResult)
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun parseArgs() {
